@@ -5,7 +5,7 @@ import Header from '../components/Header'
 export default function Movie() {
     return (
         <View>
-            <Header loggedIn={false} />
+            <Header loggedIn={true} />
         </View>
     )
 }

@@ -7,7 +7,7 @@ export default function Header({loggedIn}) {
 
   const [search, setSearch] = useState('');
 
-  const rightElement = (loggedIn) ? <Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#222'}} overlayContainerStyle={{backgroundColor: 'gold'}} /> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
+  const rightElement = (loggedIn) ? <Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#555', fontSize: wp('3%')}} overlayContainerStyle={{backgroundColor: 'gold'}} /> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
 
   return (
     <View style={styles.container}>
