@@ -34,12 +34,13 @@ export default function Header({loggedIn}) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
+    height: 64,
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: wp('4%'),
+    elevation: 20
   },
   title: {
     color: 'green',
