@@ -6,6 +6,7 @@ export default function Movie() {
     return (
         <View>
             <Header loggedIn={false} />
+
         </View>
     )
 }
