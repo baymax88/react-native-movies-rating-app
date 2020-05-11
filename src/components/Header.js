@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { SearchBar, Avatar, Button, Icon } from 'react-native-elements'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 
@@ -7,14 +7,19 @@ export default function Header({loggedIn}) {
 
   const [search, setSearch] = useState('');
 
-  const rightElement = (loggedIn) ? <Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#fff'}} overlayContainerStyle={{backgroundColor: 'green'}} /> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
+  const rightElement = (loggedIn) ? <Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#222'}} overlayContainerStyle={{backgroundColor: 'gold'}} /> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
 
   return (
     <View style={styles.container}>
-      <Button
+
+      {/* <Button
         type="clear"
-        icon={<Icon name="home" type="font-awesome" color="green" />}
-      />
+        icon={<Icon name="home" type="font-awesome" color="gold" />}
+      /> */}
+      
+      <TouchableOpacity>
+        <Image source={require("../images/logo.png")} style={{width: 80, height: 50}} />
+      </TouchableOpacity>
 
       <SearchBar
         inputStyle={styles.searchInput}
@@ -22,7 +27,7 @@ export default function Header({loggedIn}) {
         value={search}
         onChangeText={(text) => setSearch(text)}
         placeholder="Type Here..."
-        placeholderTextColor="#888"
+        placeholderTextColor="#999"
         lightTheme={true}
         containerStyle={styles.searchContainer}
       />
@@ -36,26 +41,26 @@ export default function Header({loggedIn}) {
 const styles = StyleSheet.create({
   container: {
     height: 64,
-    backgroundColor: '#fff',
+    backgroundColor: '#222',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: wp('4%'),
+    padding: wp('2%'),
     elevation: 20
   },
   title: {
-    color: 'green',
+    color: 'gold',
     fontSize: wp('4%')
   },
   searchContainer: {
     width: wp('60%'),
-    backgroundColor: '#fff',
+    backgroundColor: '#222',
   },
   searchInput: {
-    color: 'green',
-    backgroundColor: '#fff'
+    color: 'gold',
+    backgroundColor: '#222'
   },
   searchInputContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#222',
   }
 })
