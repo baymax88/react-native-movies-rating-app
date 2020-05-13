@@ -7,14 +7,14 @@ export default function Header({loggedIn}) {
 
   const [search, setSearch] = useState('');
 
-  const rightElement = (loggedIn) ? <Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#555', fontSize: wp('3%')}} overlayContainerStyle={{backgroundColor: 'gold'}} /> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
+  const rightElement = (loggedIn) ? <TouchableOpacity><Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#fff', fontSize: wp('3%')}} overlayContainerStyle={{backgroundColor: '#f5c518'}} /></TouchableOpacity> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
 
   return (
     <View style={styles.container}>
 
       {/* <Button
         type="clear"
-        icon={<Icon name="home" type="font-awesome" color="gold" />}
+        icon={<Icon name="home" type="font-awesome" color="#f5c518" />}
       /> */}
       
       <TouchableOpacity>
@@ -28,7 +28,6 @@ export default function Header({loggedIn}) {
         onChangeText={(text) => setSearch(text)}
         placeholder="Type Here..."
         placeholderTextColor="#999"
-        lightTheme={true}
         containerStyle={styles.searchContainer}
       />
 
@@ -40,8 +39,8 @@ export default function Header({loggedIn}) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 64,
-    backgroundColor: '#222',
+    height: hp('10%'),
+    backgroundColor: '#000',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -49,18 +48,20 @@ const styles = StyleSheet.create({
     elevation: 20
   },
   title: {
-    color: 'gold',
+    color: '#f5c518',
     fontSize: wp('4%')
   },
   searchContainer: {
     width: wp('60%'),
-    backgroundColor: '#222',
+    backgroundColor: '#000',
+    borderTopColor: '#000',
+    borderBottomColor: '#000'
   },
   searchInput: {
-    color: 'gold',
-    backgroundColor: '#222'
+    color: '#f5c518',
+    backgroundColor: '#000',
   },
   searchInputContainer: {
-    backgroundColor: '#222',
+    backgroundColor: '#000',
   }
 })
