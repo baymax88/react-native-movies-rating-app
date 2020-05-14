@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import axios from 'axios'
 
@@ -40,7 +40,7 @@ export default function Home() {
 
         <View style={styles.moviesContainer}>
           {isError && <Text style={{ color: '#fff' }}>Something went wrong...</Text>}
-          {isLoading ? (<Text style={{ color: '#fff' }}>Loading...</Text>) : topMovies.map(item => (
+          {isLoading ? (<ActivityIndicator />) : topMovies.map(item => (
             <MovieSummary
               key={item.imdbID}
               title={item.Title}

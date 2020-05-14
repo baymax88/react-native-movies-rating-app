@@ -3,18 +3,30 @@ import { View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Input, Button, Divider } from 'react-native-elements'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { useNavigation } from '@react-navigation/native'
 
 export default function LogInForm() {
+
+  const navigation = useNavigation();
+
+  const goTo = name => navigation.navigate(name);
+
   return (
     <View style={styles.boxContainer}>
+
       <Input placeholder="UserName" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} inputStyle={styles.input} leftIcon={<Icon name="user" size={24} color="#f5c518" />} />
+
       <Input placeholder="Password" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} secureTextEntry inputStyle={styles.input} leftIcon={<Icon name="key" size={24} color="#f5c518" />} />
+
       <Button type="clear" title="LogIn" titleStyle={styles.title} containerStyle={styles.buttonContainer} />
-      <Divider style={styles.divider} />
+
+      <Divider />
+
       <View style={styles.regBtnContainer}>
         <Text style={styles.notice}>Don't Have An Account?</Text>
-        <Button type="clear" title="Register" titleStyle={styles.title} />
+        <Button type="clear" title="Register" titleStyle={styles.title} onPress={() => goTo('Register')} />
       </View>
+
     </View>
   )
 }
@@ -26,9 +38,6 @@ const styles = StyleSheet.create({
     padding: wp('4%'),
     borderRadius: 10,
     marginBottom: wp('4%')
-  },
-  divider: {
-    backgroundColor: '#fff'
   },
   title: {
     color: '#f5c518',

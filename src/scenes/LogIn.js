@@ -14,14 +14,14 @@ export default function LogIn() {
   }
 
   return (
-    <ScrollView contentContainerStyle={{height: hp('100%')}}>
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => goTo('Home')}>
-        <Image source={require('../images/logo.png')} style={styles.logo} />
-      </TouchableOpacity>
-      <Text style={styles.title}>Log In</Text>
-      <LogInForm />
-    </View>
+    <ScrollView contentContainerStyle={{ height: hp('100%') }}>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => goTo('Home')}>
+          <Image source={require('../images/logo.png')} style={styles.logo} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Log In</Text>
+        <LogInForm />
+      </View>
     </ScrollView>
   )
 }
