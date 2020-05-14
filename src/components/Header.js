@@ -2,23 +2,25 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { SearchBar, Avatar, Button, Icon } from 'react-native-elements'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
+import { useNavigation } from '@react-navigation/native'
 
 export default function Header({loggedIn}) {
 
   const [search, setSearch] = useState('');
 
-  const rightElement = (loggedIn) ? <TouchableOpacity><Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#fff', fontSize: wp('3%')}} overlayContainerStyle={{backgroundColor: '#f5c518'}} /></TouchableOpacity> : <Button type="clear" title="LogIn" titleStyle={styles.title} />;
+  const navigation = useNavigation();
+
+  const goTo = (name) => {
+    navigation.navigate(name);
+  }
+
+  const rightElement = (loggedIn) ? <TouchableOpacity><Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#fff', fontSize: wp('3%')}} overlayContainerStyle={{backgroundColor: '#f5c518'}} /></TouchableOpacity> : <Button type="clear" title="LogIn" titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
 
   return (
     <View style={styles.container}>
-
-      {/* <Button
-        type="clear"
-        icon={<Icon name="home" type="font-awesome" color="#f5c518" />}
-      /> */}
       
-      <TouchableOpacity>
-        <Image source={require("../images/logo.png")} style={{width: 80, height: 50}} />
+      <TouchableOpacity onPress={() => goTo('Home')}>
+        <Image source={require("../images/logo.png")} style={styles.logo} />
       </TouchableOpacity>
 
       <SearchBar
@@ -46,6 +48,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: wp('2%'),
     elevation: 20
+  },
+  logo: {
+    width: wp('20%'),
+    height: wp('12%')
   },
   title: {
     color: '#f5c518',

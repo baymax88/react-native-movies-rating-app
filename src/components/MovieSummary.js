@@ -1,21 +1,21 @@
 import React from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
 export default function MovieSummary({ title, url, avgRating, year }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Image source={{ uri: url }} resizeMode="stretch" style={styles.poster} />
       <View style={styles.content}>
         <View style={styles.rate}>
           <Icon name="star" type="font-awesome" color="#f5c518" />
-          <Text style={styles.title}>{avgRating.toFixed(1)} / 10</Text>
+          <Text style={styles.year}>{avgRating.toFixed(1)} / 10.0</Text>
         </View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.year}>{year}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     paddingBottom: wp('4%'),
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 10
   },
   poster: {
     width: wp('30%'),
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   title: {
-    color: '#fff',
+    color: '#f5c518',
     fontSize: wp('4%'),
     marginLeft: 4,
     alignSelf: 'flex-start'
