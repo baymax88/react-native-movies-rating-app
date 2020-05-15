@@ -10,15 +10,15 @@ export default function Header({loggedIn}) {
 
   const [search, setSearch] = useState('');
 
-  const { userName } = useContext(GlobalContext)
+  const { name } = useContext(GlobalContext)
 
   const navigation = useNavigation();
 
-  const goTo = (name) => {
-    navigation.navigate(name);
+  const goTo = (n) => {
+    navigation.navigate(n);
   }
 
-  const rightElement = (loggedIn) ? <Button type="clear" title={userName} containerStyle={styles.rightBtnContainer} titleStyle={styles.title} onPress={() => goTo('LogIn')} /> : <Button type="clear" title="LogIn" containerStyle={styles.rightBtnContainer} titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
+  const rightElement = (loggedIn) ? <Button type="clear" title={name} containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('LogIn')} /> : <Button type="clear" title="LogIn" containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
 
   return (
     <View style={styles.container}>
@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
     height: wp('12%')
   },
   rightBtnContainer: {
-    width: wp('20%')
+    width: wp('20%'),
   },
   title: {
     color: '#f5c518',
     fontSize: wp('4%')
   },
   searchContainer: {
-    width: wp('60%'),
+    width: wp('50%'),
     backgroundColor: '#000',
     borderTopColor: '#000',
     borderBottomColor: '#000'

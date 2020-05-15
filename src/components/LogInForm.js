@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { Input, Button, Divider } from 'react-native-elements'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios'
 
 import { GlobalContext } from '../context/GlobalState'
 
@@ -12,7 +13,7 @@ export default function LogInForm() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login } = useContext(GlobalContext)
+  const { setData } = useContext(GlobalContext)
 
   const onSubmit = () => {
     const loginData = {
@@ -21,7 +22,25 @@ export default function LogInForm() {
     }
 
     login(loginData)
-    goTo('Home')
+  }
+
+  async function login(loginData) {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try {
+      const res = await axios.post('https://carolinehoeg.com/semesterprojekt/api/login', loginData, config);
+
+      await setData(res.data);
+
+      await goTo('Home')
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const navigation = useNavigation();

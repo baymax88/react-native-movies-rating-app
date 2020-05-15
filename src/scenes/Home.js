@@ -13,7 +13,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const { userName } = useContext(GlobalContext)
+  const { name } = useContext(GlobalContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <View>
-      <Header loggedIn={(userName !== '')} />
+      <Header loggedIn={(name !== '')} />
       <ScrollView style={styles.content}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Top Ten Movies Right Now</Text>

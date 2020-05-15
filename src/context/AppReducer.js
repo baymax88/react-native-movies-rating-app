@@ -1,15 +1,10 @@
 export default (state, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case "SET_DATA":
       return {
         ...state,
-        userName: action.payload.username,
-        userToken: action.payload.token
-      }
-    case "ERROR":
-      return {
-        ...state,
-        error: action.payload
+        name: action.payload.username,
+        token: action.payload.token
       }
     default:
       return state;

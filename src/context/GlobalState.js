@@ -3,8 +3,8 @@ import AppReducer from './AppReducer'
 import axios from 'axios'
 
 const initialState = {
-  userName: '',
-  userToken: '',
+  name: '',
+  token: '',
   error: null
 }
 
@@ -13,34 +13,19 @@ export const GlobalContext = createContext(initialState)
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  async function login(loginData) {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-
-    try {
-      const res = await axios.post('https://carolinehoeg.com/semesterprojekt/api/login', loginData, config);
-
-      dispatch({
-        type: 'LOGIN',
-        payload: res.data
-      })
-    } catch (error) {
-      dispatch({
-        type: 'ERROR',
-        payload: error.response.data.error
-      })
-    }
+  async function setData(data) {
+    dispatch({
+      type: 'SET_DATA',
+      payload: data
+    })
   }
 
   return (
     <GlobalContext.Provider value={{
-      userName: state.userName,
-      userToken: state.userToken,
+      name: state.name,
+      token: state.token,
       error: state.error,
-      login
+      setData
     }}>{children}</GlobalContext.Provider>
   )
 }
