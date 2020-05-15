@@ -12,24 +12,25 @@ import Register from './src/scenes/Register'
 import UserProfile from './src/scenes/UserProfile'
 import UserEdit from './src/scenes/UserEdit'
 
+import { GlobalProvider } from './src/context/GlobalState'
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="LogIn"
-        headerMode="none"
-      >
-        <Stack.Screen name="Home" component={Home}></Stack.Screen>
-        <Stack.Screen name="Movie" component={Movie}></Stack.Screen>
-        <Stack.Screen name="Review" component={Review}></Stack.Screen>
-        <Stack.Screen name="SearchResult" component={SearchResult}></Stack.Screen>
-        <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
-        <Stack.Screen name="Register" component={Register}></Stack.Screen>
-        <Stack.Screen name="UserProfile" component={UserProfile}></Stack.Screen>
-        <Stack.Screen name="UserEdit" component={UserEdit}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GlobalProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="LogIn" headerMode="none">
+          <Stack.Screen name="Home" component={Home}></Stack.Screen>
+          <Stack.Screen name="Movie" component={Movie}></Stack.Screen>
+          <Stack.Screen name="Review" component={Review}></Stack.Screen>
+          <Stack.Screen name="SearchResult" component={SearchResult}></Stack.Screen>
+          <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
+          <Stack.Screen name="Register" component={Register}></Stack.Screen>
+          <Stack.Screen name="UserProfile" component={UserProfile}></Stack.Screen>
+          <Stack.Screen name="UserEdit" component={UserEdit}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GlobalProvider>
   );
 }

@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Input, Button, Divider } from 'react-native-elements'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
 
+import { GlobalContext } from '../context/GlobalState'
+
 export default function LogInForm() {
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { login } = useContext(GlobalContext)
+
+  const onSubmit = () => {
+    const loginData = {
+      username: userName,
+      password
+    }
+
+    login(loginData)
+    goTo('Home')
+  }
 
   const navigation = useNavigation();
 
@@ -14,11 +31,11 @@ export default function LogInForm() {
   return (
     <View style={styles.boxContainer}>
 
-      <Input placeholder="UserName" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} inputStyle={styles.input} leftIcon={<Icon name="user" size={24} color="#f5c518" />} />
+      <Input placeholder="UserName" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} inputStyle={styles.input} leftIcon={<Icon name="user" size={24} color="#f5c518" />} value={userName} onChangeText={text => setUserName(text)} />
 
-      <Input placeholder="Password" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} secureTextEntry inputStyle={styles.input} leftIcon={<Icon name="key" size={24} color="#f5c518" />} />
+      <Input placeholder="Password" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} secureTextEntry inputStyle={styles.input} leftIcon={<Icon name="key" size={24} color="#f5c518" />} value={password} onChangeText={text => setPassword(text)} />
 
-      <Button type="clear" title="LogIn" titleStyle={styles.title} containerStyle={styles.buttonContainer} />
+      <Button type="clear" title="LogIn" titleStyle={styles.title} containerStyle={styles.buttonContainer} onPress={onSubmit} />
 
       <Divider />
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import axios from 'axios'
@@ -6,10 +6,14 @@ import axios from 'axios'
 import Header from '../components/Header'
 import MovieSummary from '../components/MovieSummary'
 
+import { GlobalContext } from '../context/GlobalState'
+
 export default function Home() {
   const [topMovies, setTopMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  const { userName } = useContext(GlobalContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,7 +21,7 @@ export default function Home() {
       setIsLoading(true);
 
       try {
-        const result = await axios('https://carolinehoeg.com/semesterprojekt/api/movies/topten');
+        const result = await axios.get('https://carolinehoeg.com/semesterprojekt/api/movies/topten');
 
         setTopMovies(result.data.movieDTOs);
       } catch (error) {
@@ -32,7 +36,7 @@ export default function Home() {
 
   return (
     <View>
-      <Header loggedIn={false} />
+      <Header loggedIn={(userName !== '')} />
       <ScrollView style={styles.content}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Top Ten Movies Right Now</Text>

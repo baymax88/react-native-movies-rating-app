@@ -4,27 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { Input, Button, Divider } from 'react-native-elements'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
-import DateTimePicker from '@react-native-community/datetimepicker'
 
 export default function RegForm() {
 
   const [birthDate, setBirthDate] = useState(new Date());
-  const [show, setShow] = useState(false);
 
   const navigation = useNavigation();
 
   const goTo = name => navigation.navigate(name);
-
-  const showDatePicker = () => {
-    Keyboard.dismiss();
-    setShow(true);
-  };
-
-  const onDateSet = (event, selectedDate) => {
-    const currentDate = selectedDate || birthDate;
-    setShow(Platform.OS === 'ios');
-    setBirthDate(currentDate);
-  }
 
   return (
     <View style={styles.boxContainer}>
@@ -35,9 +22,7 @@ export default function RegForm() {
 
       <Input placeholder="Confirm Password" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} secureTextEntry inputStyle={styles.input} leftIcon={<Icon name="key" size={24} color="#f5c518" />} />
 
-      <Input placeholder="Birthday" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} secureTextEntry inputStyle={styles.input} leftIcon={<Icon name="calendar" size={24} color="#f5c518" />} onFocus={showDatePicker} value={birthDate} />
-
-      {show && (<DateTimePicker style={styles.datePicker} value={birthDate} mode="date" onChange={onDateSet} />)}
+      <Input placeholder="Birthday DD-MM-YYYY" placeholderTextColor="#999" inputContainerStyle={styles.inputContainer} inputStyle={styles.input} leftIcon={<Icon name="calendar" size={24} color="#f5c518" />} keyboardType="decimal-pad" />
 
       <Button type="clear" title="Register" titleStyle={styles.title} containerStyle={styles.buttonContainer} />
 
@@ -59,7 +44,6 @@ const styles = StyleSheet.create({
     padding: wp('4%'),
     borderRadius: 10,
     marginBottom: wp('4%'),
-    alignItems: 'center'
   },
   title: {
     color: '#f5c518',

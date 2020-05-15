@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { SearchBar, Avatar, Button, Icon } from 'react-native-elements'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
 
+import { GlobalContext } from '../context/GlobalState'
+
 export default function Header({loggedIn}) {
 
   const [search, setSearch] = useState('');
+
+  const { userName } = useContext(GlobalContext)
 
   const navigation = useNavigation();
 
@@ -14,7 +18,7 @@ export default function Header({loggedIn}) {
     navigation.navigate(name);
   }
 
-  const rightElement = (loggedIn) ? <TouchableOpacity><Avatar small rounded title="DY" activeOpacity={0.7} titleStyle={{color: '#fff', fontSize: wp('3%')}} overlayContainerStyle={{backgroundColor: '#f5c518'}} /></TouchableOpacity> : <Button type="clear" title="LogIn" titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
+  const rightElement = (loggedIn) ? <Button type="clear" title={userName} containerStyle={styles.rightBtnContainer} titleStyle={styles.title} onPress={() => goTo('LogIn')} /> : <Button type="clear" title="LogIn" containerStyle={styles.rightBtnContainer} titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
 
   return (
     <View style={styles.container}>
@@ -52,6 +56,9 @@ const styles = StyleSheet.create({
   logo: {
     width: wp('20%'),
     height: wp('12%')
+  },
+  rightBtnContainer: {
+    width: wp('20%')
   },
   title: {
     color: '#f5c518',
