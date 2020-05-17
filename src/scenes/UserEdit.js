@@ -1,10 +1,69 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React, { useContext, useState, useEffect } from 'react'
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
-export default function UserEdit() {
-    return (
-        <View>
-            <Text>UserEdit</Text>
+import Header from '../components/Header'
+import UserEditForm from '../components/UserEditForm'
+
+import { GlobalContext } from '../context/GlobalState'
+
+export default function UserEdit({route}) {
+
+  const { name, token } = useContext(GlobalContext)
+  const { userName, birthDate, gender } = route.params
+
+  return (
+    <View>
+      <Header loggedIn={(name !== '')} />
+      <ScrollView style={styles.content}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Edit User</Text>
         </View>
-    )
+
+        <View style={styles.updateContainer}>
+          <UserEditForm token={token} orgName={userName} orgDate={birthDate} orgGender={gender} />
+        </View>
+      </ScrollView>
+    </View>
+  )
 }
+
+
+const styles = StyleSheet.create({
+  content: {
+    height: hp('90%'),
+    backgroundColor: '#121212'
+  },
+  updateContainer: {
+    marginLeft: wp('5%'),
+    marginRight: wp('5%')
+  },
+  titleContainer: {
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  title: {
+    color: '#f5c518',
+    fontSize: wp('6%'),
+    fontWeight: 'bold'
+  },
+  basicInfo: {
+    alignItems: 'center'
+  },
+  basicText: {
+    color: '#fff',
+    fontSize: wp('4%'),
+    marginBottom: wp('4%')
+  },
+  reviewContainer: {
+    alignSelf: 'flex-start',
+    marginLeft: wp('3%')
+  },
+  reviewTitle: {
+    color: '#f5c518',
+    fontSize: wp('5%'),
+    fontWeight: 'bold',
+    alignSelf: 'flex-end'
+  },
+})

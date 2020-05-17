@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { Button } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 
 import Header from '../components/Header'
@@ -9,14 +11,16 @@ import { GlobalContext } from '../context/GlobalState'
 
 export default function UserProfile() {
 
+  const navigation = useNavigation()
+
   const { name, token } = useContext(GlobalContext)
 
   const [gender, setGender] = useState('')
   const [birthDate, setBirthDate] = useState('')
   const [reviews, setReviews] = useState([])
   const [ratings, setRatings] = useState([])
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +51,16 @@ export default function UserProfile() {
     fetchData();
   }, []);
 
+  const goToEdit = () => {
+    const data = {
+      userName: name,
+      birthDate: birthDate,
+      gender: gender
+    }
+
+    navigation.navigate('UserEdit', data)
+  }
+
   return (
     <View>
       <Header userPage={true} />
@@ -60,6 +74,7 @@ export default function UserProfile() {
           {isLoading ? (<ActivityIndicator />) : <View style={styles.basicInfo}>
             <Text style={styles.basicText}>Gender: {gender}</Text>
             <Text style={styles.basicText}>BirthDay: {birthDate}</Text>
+            <Button type="clear" title="Edit" onPress={() => goToEdit()} />
             <View style={styles.reviewContainer}>
               <Text style={styles.reviewTitle}>My Reviews and Ratings</Text>
             </View>
@@ -86,9 +101,6 @@ const styles = StyleSheet.create({
     fontSize: wp('6%'),
     fontWeight: 'bold'
   },
-  // userContent: {
-  //   marginTop: wp('4%')
-  // },
   basicInfo: {
     alignItems: 'center'
   },

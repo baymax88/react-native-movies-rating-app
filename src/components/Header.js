@@ -10,7 +10,7 @@ export default function Header({loggedIn, userPage}) {
 
   const [search, setSearch] = useState('');
 
-  const { name } = useContext(GlobalContext)
+  const { name, removeData } = useContext(GlobalContext)
 
   const navigation = useNavigation();
 
@@ -18,10 +18,15 @@ export default function Header({loggedIn, userPage}) {
     navigation.navigate(n);
   }
 
+  const logout = () => {
+    removeData()
+    goTo('Home')
+  }
+
   let rightElement = (loggedIn) ? <Button type="clear" title={name} containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('UserProfile')} /> : <Button type="clear" title="LogIn" containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
 
   if (userPage) {
-    rightElement = <Button type="clear" title="LogOut" containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('LogIn')} />
+    rightElement = <Button type="clear" title="LogOut" containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={logout} />
   }
 
   return (
