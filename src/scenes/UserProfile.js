@@ -43,7 +43,9 @@ export default function UserProfile() {
             if (review.movieID === rating.movieID) {
               temp.push({
                 movieID: review.movieID,
+                review_id: review.id,
                 review: review.review,
+                rating_id: rating.id,
                 rating: rating.rating
               })
             }
@@ -52,7 +54,6 @@ export default function UserProfile() {
 
         setReviewAndRatings(temp)
       } catch (error) {
-        console.log(error)
         setIsError(true);
       }
 
@@ -96,7 +97,7 @@ export default function UserProfile() {
                 <View key={item.movieID} style={styles.reviewContent}>
                   <View style={styles.header}>
                     <Text style={styles.movieTitle}>{item.movieID}</Text>
-                    <Button type="clear" title="Edit Review" onPress={item => goToReview(item)} />
+                    <Button type="clear" title="Edit Review" onPress={() => goToReview(item)} />
                   </View>
                   <View style={styles.review}>
                     <Text style={styles.desc}>{item.review}</Text>

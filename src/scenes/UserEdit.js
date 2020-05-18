@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 
@@ -44,26 +44,8 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   title: {
-    color: '#f5c518',
+    color: '#fff',
     fontSize: wp('6%'),
     fontWeight: 'bold'
-  },
-  basicInfo: {
-    alignItems: 'center'
-  },
-  basicText: {
-    color: '#fff',
-    fontSize: wp('4%'),
-    marginBottom: wp('4%')
-  },
-  reviewContainer: {
-    alignSelf: 'flex-start',
-    marginLeft: wp('3%')
-  },
-  reviewTitle: {
-    color: '#f5c518',
-    fontSize: wp('5%'),
-    fontWeight: 'bold',
-    alignSelf: 'flex-end'
   },
 })

@@ -110,15 +110,15 @@ const styles = StyleSheet.create({
     color: '#f5c518'
   },
   delete: {
-    color: '#ff3333',
+    color: '#fff',
     fontSize: wp('4%')
   },
   save: {
-    color: '#5cd65c',
+    color: '#fff',
     fontSize: wp('4%')
   },
   input: {
-    color: '#f5c518',
+    color: '#fff',
   },
   inputContainer: {
     width: wp('60%'),
