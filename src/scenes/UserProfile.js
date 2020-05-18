@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
-import { Button } from 'react-native-elements'
+import { Button, Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 
@@ -17,8 +17,7 @@ export default function UserProfile() {
 
   const [gender, setGender] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const [reviews, setReviews] = useState([])
-  const [ratings, setRatings] = useState([])
+  const [reviewAndRatings, setReviewAndRatings] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -36,10 +35,22 @@ export default function UserProfile() {
       try {
         const res = await axios.get('https://carolinehoeg.com/semesterprojekt/api/info/user', config);
 
+        let temp = [];
         setGender(res.data.gender)
         setBirthDate(res.data.birthday)
-        setReviews(res.data.reviews)
-        setRatings(res.data.ratings)
+        res.data.reviews.map(review => {
+          res.data.ratings.map(rating => {
+            if (review.movieID === rating.movieID) {
+              temp.push({
+                movieID: review.movieID,
+                review: review.review,
+                rating: rating.rating
+              })
+            }
+          })
+        })
+
+        setReviewAndRatings(temp)
       } catch (error) {
         console.log(error)
         setIsError(true);
@@ -61,6 +72,10 @@ export default function UserProfile() {
     navigation.navigate('UserEdit', data)
   }
 
+  const goToReview = data => {
+    navigation.navigate('Review', data)
+  }
+
   return (
     <View>
       <Header userPage={true} />
@@ -77,6 +92,21 @@ export default function UserProfile() {
             <Button type="clear" title="Edit" onPress={() => goToEdit()} />
             <View style={styles.reviewContainer}>
               <Text style={styles.reviewTitle}>My Reviews and Ratings</Text>
+              {reviewAndRatings.map(item => (
+                <View key={item.movieID} style={styles.reviewContent}>
+                  <View style={styles.header}>
+                    <Text style={styles.movieTitle}>{item.movieID}</Text>
+                    <Button type="clear" title="Edit Review" onPress={item => goToReview(item)} />
+                  </View>
+                  <View style={styles.review}>
+                    <Text style={styles.desc}>{item.review}</Text>
+                    <View style={styles.rate}>
+                      <Icon name="star" type="font-awesome" color="#f5c518" />
+                      <Text style={styles.reteNum}>{item.rating} / 10.0</Text>
+                    </View>
+                  </View>
+                </View>
+              ))}
             </View>
           </View>}
         </View>
@@ -89,12 +119,15 @@ export default function UserProfile() {
 const styles = StyleSheet.create({
   content: {
     height: hp('90%'),
-    backgroundColor: '#121212'
+    backgroundColor: '#121212',
   },
   titleContainer: {
     alignItems: 'center',
     paddingTop: 20,
     paddingBottom: 20
+  },
+  userContent: {
+    marginBottom: wp('5%')
   },
   title: {
     color: '#f5c518',
@@ -110,13 +143,54 @@ const styles = StyleSheet.create({
     marginBottom: wp('4%')
   },
   reviewContainer: {
-    alignSelf: 'flex-start',
-    marginLeft: wp('3%')
+    width: wp('90%'),
   },
   reviewTitle: {
     color: '#f5c518',
     fontSize: wp('5%'),
     fontWeight: 'bold',
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-start',
+    marginBottom: wp('4%')
   },
+  reviewContent: {
+    backgroundColor: '#222',
+    paddingLeft: wp('4%'),
+    paddingRight: wp('4%'),
+    marginBottom: wp('4%'),
+    paddingTop: wp('2%'),
+    paddingBottom: wp('4%'),
+    borderRadius: 10
+  },
+  review: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: wp('4%')
+  },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: '#fff',
+    borderBottomWidth: 1,
+    paddingBottom: wp('2%')
+  },
+  rate: {
+    flexDirection: 'row'
+  },
+  movieTitle: {
+    color: '#f5c518',
+    fontSize: wp('4%'),
+    fontWeight: 'bold'
+  },
+  desc: {
+    color: '#fff',
+    fontSize: wp('4%'),
+    width: wp('50%')
+  },
+  reteNum: {
+    color: '#fff',
+    fontSize: wp('4%'),
+    marginLeft: wp('2%')
+  }
 })
