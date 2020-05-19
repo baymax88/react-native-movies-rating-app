@@ -2,10 +2,18 @@ import React from 'react'
 import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { useNavigation } from '@react-navigation/native'
 
-export default function MovieSummary({ title, url, avgRating, year }) {
+export default function MovieSummary({ title, url, avgRating, year, movieID }) {
+
+  const navigation = useNavigation();
+
+  const goToMovie = () => {
+    navigation.navigate('Movie', {movieID})
+  }
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={goToMovie}>
       <Image source={{ uri: url }} resizeMode="stretch" style={styles.poster} />
       <View style={styles.content}>
         <View style={styles.rate}>

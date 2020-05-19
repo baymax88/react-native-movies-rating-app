@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Home from './src/scenes/Home'
 import Movie from './src/scenes/Movie'
 import Review from './src/scenes/Review'
+import AddReview from './src/scenes/AddReview'
 import SearchResult from './src/scenes/SearchResult'
 import LogIn from './src/scenes/LogIn'
 import Register from './src/scenes/Register'
@@ -20,10 +21,11 @@ export default function App() {
   return (
     <GlobalProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="LogIn" headerMode="none">
+        <Stack.Navigator initialRouteName="Home" headerMode="none">
           <Stack.Screen name="Home" component={Home}></Stack.Screen>
           <Stack.Screen name="Movie" component={Movie}></Stack.Screen>
           <Stack.Screen name="Review" component={Review}></Stack.Screen>
+          <Stack.Screen name="AddReview" component={AddReview}></Stack.Screen>
           <Stack.Screen name="SearchResult" component={SearchResult}></Stack.Screen>
           <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
           <Stack.Screen name="Register" component={Register}></Stack.Screen>

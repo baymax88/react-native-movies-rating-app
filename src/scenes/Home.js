@@ -47,6 +47,7 @@ export default function Home() {
           {isLoading ? (<ActivityIndicator />) : topMovies.map(item => (
             <MovieSummary
               key={item.imdbID}
+              movieID={item.imdbID}
               title={item.Title}
               url={item.Poster}
               avgRating={item.avgRating}

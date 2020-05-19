@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { SearchBar, Avatar, Button, Icon } from 'react-native-elements'
+import { SearchBar, Avatar, Button, Icon, getIconType } from 'react-native-elements'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
 
@@ -23,6 +23,10 @@ export default function Header({loggedIn, userPage}) {
     goTo('Home')
   }
 
+  const toSearch = () => {
+    navigation.navigate('SearchResult', {keyword: search});
+  }
+
   let rightElement = (loggedIn) ? <Button type="clear" title={name} containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('UserProfile')} /> : <Button type="clear" title="LogIn" containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('LogIn')} />;
 
   if (userPage) {
@@ -41,6 +45,7 @@ export default function Header({loggedIn, userPage}) {
         inputContainerStyle={styles.searchInputContainer}
         value={search}
         onChangeText={(text) => setSearch(text)}
+        onSubmitEditing={() => toSearch()}
         placeholder="Type Here..."
         placeholderTextColor="#999"
         containerStyle={styles.searchContainer}

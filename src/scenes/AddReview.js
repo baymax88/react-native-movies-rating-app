@@ -13,13 +13,13 @@ import { GlobalContext } from '../context/GlobalState'
 export default function Review({route}) {
 
   const { name, token } = useContext(GlobalContext)
-  const { movieID, review_id, rating_id } = route.params
+  const { movieID } = route.params
 
   const [movie, setMovie] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
-  const [rating, setRating] = useState(route.params.rating)
-  const [review, setReview] = useState(route.params.review)
+  const [rating, setRating] = useState('')
+  const [review, setReview] = useState('')
 
   const navigation = useNavigation();
 
@@ -56,14 +56,12 @@ export default function Review({route}) {
 
   const save = async () => {
     const rating_data = {
-      id: rating_id,
       movieID,
       rating,
       username: name
     }
 
     const review_data = {
-      id: review_id,
       movieID,
       review,
       username: name
@@ -76,7 +74,7 @@ export default function Review({route}) {
     }
 
     try {
-      const res = await axios.put('https://carolinehoeg.com/semesterprojekt/api/movies/edit/rating', rating_data, config);
+      const res = await axios.post('https://carolinehoeg.com/semesterprojekt/api/movies/add/rating', rating_data, config);
 
       await setRating(res.data.rating)
 
@@ -85,51 +83,9 @@ export default function Review({route}) {
     }
 
     try {
-      const res = await axios.put('https://carolinehoeg.com/semesterprojekt/api/movies/edit/review', review_data, config);
+      const res = await axios.post('https://carolinehoeg.com/semesterprojekt/api/movies/add/review', review_data, config);
 
       await setReview(res.data.review)
-      await goTo('Home')
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const remove = async () => {
-    const rating_data = {
-      id: rating_id,
-      movieID,
-      rating,
-      username: name
-    }
-
-    const review_data = {
-      id: review_id,
-      movieID,
-      review,
-      username: name
-    }
-
-    const config = {
-      headers: {
-        'x-access-token': token
-      }
-    }
-
-    try {
-      const res = await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/rating', rating_data, config);
-
-      console.log(res.data)
-
-    } catch (error) {
-      console.log(error)
-    }
-
-    try {
-      const res = await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/review', review_data, config);
-
-      await console.log(res.data)
-
       await goTo('Home')
 
     } catch (error) {
@@ -156,7 +112,7 @@ export default function Review({route}) {
               ratingCount={10}
               imageSize={wp('8%')}
               showRating
-              startingValue={parseInt(rating)}
+              startingValue={0}
               onFinishRating={finishRating}
             />
             <View style={styles.reviewInput}>
@@ -169,8 +125,6 @@ export default function Review({route}) {
               />
             </View>
             <View style={styles.btnsContainer}>
-              <Button type="clear" title="Delete" titleStyle={styles.delete} containerStyle={styles.buttonContainer} onPress={remove} />
-
               <Button type="clear" title="Save" titleStyle={styles.save} containerStyle={styles.buttonContainer} onPress={save} />
             </View>
           </View>
