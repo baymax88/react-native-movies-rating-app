@@ -96,36 +96,39 @@ export default function Review({route}) {
   }
 
   const remove = async () => {
-    const rating_data = {
-      id: rating_id,
-      movieID: movieID,
-      username: name,
-      rating: rating
-    }
-
-    const review_data = {
-      id: review_id,
-      movieID: movieID,
-      username: name,
-      review: review
-    }
-
-    const config = {
-      headers: {
-        'x-access-token': token
-      }
-    }
-
     try {
-      await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/rating', rating_data, config);
+      const res = await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/rating', {
+        headers: {
+          'x-access-token': token
+        },
+        data: {
+          id: rating_id,
+          movieID: movieID,
+          username: name,
+          rating: rating
+        }
+      });
+
+      console.log(res.data)
 
     } catch (error) {
-      console.log(error)
+      console.log(error.response)
     }
 
     try {
-      await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/review', review_data, config);
+      const res = await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/review', {
+        headers: {
+          'x-access-token': token
+        },
+        data: {
+          id: review_id,
+          movieID: movieID,
+          username: name,
+          review: review
+        }
+      });
 
+      console.log(res.data)
       goTo('Home')
 
     } catch (error) {

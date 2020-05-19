@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
     width: wp('50%'),
     backgroundColor: '#000',
     borderTopColor: '#000',
-    borderBottomColor: '#000'
+    borderBottomColor: '#000',
+    height: hp('10%')
   },
   searchInput: {
     color: '#f5c518',
