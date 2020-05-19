@@ -25,6 +25,7 @@ export default function Home() {
 
         setTopMovies(result.data.movieDTOs);
       } catch (error) {
+        console.log(error)
         setIsError(true);
       }
 

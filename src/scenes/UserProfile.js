@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 
 import Header from '../components/Header'
+import ReviewShow from '../components/ReviewShow'
 
 import { GlobalContext } from '../context/GlobalState'
 
@@ -73,10 +74,6 @@ export default function UserProfile() {
     navigation.navigate('UserEdit', data)
   }
 
-  const goToReview = data => {
-    navigation.navigate('Review', data)
-  }
-
   return (
     <View>
       <Header userPage={true} />
@@ -93,8 +90,8 @@ export default function UserProfile() {
             <Button type="clear" title="Edit" onPress={() => goToEdit()} />
             <View style={styles.reviewContainer}>
               <Text style={styles.reviewTitle}>My Reviews and Ratings</Text>
-              {reviewAndRatings.map(item => (
-                <View key={item.movieID} style={styles.reviewContent}>
+              {/* {reviewAndRatings.map((item, index) => (
+                <View key={index} style={styles.reviewContent}>
                   <View style={styles.header}>
                     <Text style={styles.movieTitle}>{item.movieID}</Text>
                     <Button type="clear" title="Edit Review" onPress={() => goToReview(item)} />
@@ -107,7 +104,8 @@ export default function UserProfile() {
                     </View>
                   </View>
                 </View>
-              ))}
+              ))} */}
+              {reviewAndRatings.map((item, index) => (<ReviewShow key={index} item={item} />))}
             </View>
           </View>}
         </View>
@@ -153,45 +151,4 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginBottom: wp('4%')
   },
-  reviewContent: {
-    backgroundColor: '#222',
-    paddingLeft: wp('4%'),
-    paddingRight: wp('4%'),
-    marginBottom: wp('4%'),
-    paddingTop: wp('2%'),
-    paddingBottom: wp('4%'),
-    borderRadius: 10
-  },
-  review: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: wp('4%')
-  },
-  header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomColor: '#fff',
-    borderBottomWidth: 1,
-    paddingBottom: wp('2%')
-  },
-  rate: {
-    flexDirection: 'row'
-  },
-  movieTitle: {
-    color: '#f5c518',
-    fontSize: wp('4%'),
-    fontWeight: 'bold'
-  },
-  desc: {
-    color: '#fff',
-    fontSize: wp('4%'),
-    width: wp('50%')
-  },
-  reteNum: {
-    color: '#fff',
-    fontSize: wp('4%'),
-    marginLeft: wp('2%')
-  }
 })

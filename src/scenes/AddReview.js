@@ -98,7 +98,7 @@ export default function Review({route}) {
       behavior="height"
     >
       <Header loggedIn={(name !== '')} />
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView contentContainerStyle={styles.content} style={styles.scrollStyle}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Review</Text>
         </View>
@@ -120,6 +120,7 @@ export default function Review({route}) {
                 multiline
                 numberOfLines={5}
                 onChangeText={text => changeText(text)}
+                placeholder="Type here your review"
                 value={review}
                 style={styles.reviewFont}
               />
@@ -136,8 +137,10 @@ export default function Review({route}) {
 
 const styles = StyleSheet.create({
   content: {
-    height: hp('90%'),
     backgroundColor: '#121212'
+  },
+  scrollStyle: {
+    height: hp('87%'),
   },
   titleContainer: {
     alignItems: 'center',
@@ -155,9 +158,10 @@ const styles = StyleSheet.create({
     marginLeft: wp('5%'),
     marginRight: wp('5%'),
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     padding: wp('4%'),
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: wp('4%')
   },
   movieTitle: {
     color: '#222',
@@ -188,18 +192,13 @@ const styles = StyleSheet.create({
     marginTop: wp('4%'),
     marginBottom: wp('4%')
   },
-  delete: {
-    color: '#222',
-    fontSize: wp('4%')
-  },
   save: {
     color: '#222',
-    fontSize: wp('4%')
+    fontSize: wp('4%'),
   },
   btnsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: wp('10%')
   },
 })

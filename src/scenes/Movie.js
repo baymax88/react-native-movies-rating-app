@@ -62,7 +62,7 @@ export default function Movie({route}) {
             <Header loggedIn={(name !== '')} />
             {isError && <Text style={{ color: '#fff' }}>Something went wrong...</Text>}
             {isLoading ? (<ActivityIndicator />) : (
-                <ScrollView contentContainerStyle={styles.container} style={{height: hp('90%')}}>
+                <ScrollView contentContainerStyle={styles.container} style={styles.scrollViewStyle}>
                     <View style={styles.titleContainer}>
                         <Text style={styles.title}>{movie.Title}</Text>
                     </View>
@@ -88,9 +88,9 @@ export default function Movie({route}) {
                         <Text style={styles.title}>User Review</Text>
                     </View>
 
-                    <Button type="clear" title={(name !== '') ? "Add rating and review" : "Log In to add rating and review"} containerStyle={styles.button} onPress={buttonPress} />
-                    {reviewAndRatings.map(item => (
-                        <View key={item.id} style={styles.reviewContent}>
+                    <Button type="solid" title={(name !== '') ? "Add rating and review" : "Log In to add rating and review"} containerStyle={styles.button} onPress={buttonPress} />
+                    {reviewAndRatings.map((item, index) => (
+                        <View key={index} style={styles.reviewContent}>
                             <View style={styles.header}>
                                 <Text style={styles.movieTitle}>{item.user}</Text>
                             </View>
@@ -118,26 +118,28 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     container: {
-        minHeight: wp('90%'),
         alignItems: 'center',
-        backgroundColor: '#fefefe',
+    },
+    scrollViewStyle: {
+        backgroundColor: '#222',
+        height: hp('87%')
     },
     poster: {
         marginTop: wp('4%'),
         width: wp('50%'),
-        height: wp('60%'),
-        borderColor: '#222',
+        height: wp('64%'),
+        borderColor: '#f5c518',
         borderWidth: 2
     },
     text: {
-        color: '#222',
+        color: '#fff',
         fontSize: wp('4%'),
         fontWeight: 'bold',
         textAlign: 'center'
     },
     infoContainer: {
         width: wp('80%'),
-        backgroundColor: '#767676',
+        backgroundColor: '#323232',
         padding: wp('4%'),
         marginTop: wp('5%'),
         borderRadius: 5
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
         marginBottom: wp('5%')
     },
     reviewContent: {
-        backgroundColor: '#767676',
+        backgroundColor: '#323232',
         paddingLeft: wp('4%'),
         paddingRight: wp('4%'),
         marginBottom: wp('4%'),
