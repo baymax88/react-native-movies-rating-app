@@ -18,7 +18,7 @@ export default function MovieSummary({ title, url, avgRating, year, movieID }) {
       <View style={styles.content}>
         <View style={styles.rate}>
           <Icon name="star" type="font-awesome" color="#f5c518" />
-          <Text style={styles.year}>{avgRating.toFixed(1)} / 10.0</Text>
+          <Text style={styles.year}>{(avgRating < 0) ? "TBD" : avgRating.toFixed(1)} / 10.0</Text>
         </View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.year}>{year}</Text>
