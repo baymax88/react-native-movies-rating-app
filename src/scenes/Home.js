@@ -45,9 +45,9 @@ export default function Home() {
 
         <View style={styles.moviesContainer}>
           {isError && <Text style={{ color: '#fff' }}>Something went wrong...</Text>}
-          {isLoading ? (<ActivityIndicator />) : topMovies.map(item => (
+          {isLoading ? (<ActivityIndicator />) : topMovies.map((item, index) => (
             <MovieSummary
-              key={item.imdbID}
+              key={index}
               movieID={item.imdbID}
               title={item.Title}
               url={item.Poster}

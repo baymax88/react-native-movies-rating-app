@@ -40,6 +40,7 @@ export default function SearchResult({route}) {
   }, [])
 
   const goToNext = async () => {
+    setIsError(false)
     setIsLoading(true)
     setMovies([])
 
@@ -55,6 +56,7 @@ export default function SearchResult({route}) {
   }
 
   const goToPrev = async () => {
+    setIsError(false)
     setIsLoading(true)
     setMovies([])
 
@@ -70,6 +72,7 @@ export default function SearchResult({route}) {
   }
 
   const handler = async newWord => {
+    setIsError(false)
     setIsLoading(true)
     setMovies([])
 
@@ -96,9 +99,9 @@ export default function SearchResult({route}) {
 
         <View style={styles.moviesContainer}>
           {isError && <Text style={{ color: '#fff' }}>Something went wrong...</Text>}
-          {isLoading ? (<ActivityIndicator />) : movies.map(item => (
+          {isLoading ? (<ActivityIndicator />) : movies.map((item, index) => (
             <MovieSummary
-              key={item.imdbID}
+              key={index}
               movieID={item.imdbID}
               title={item.Title}
               url={item.Poster}

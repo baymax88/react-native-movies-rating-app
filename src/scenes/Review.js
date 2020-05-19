@@ -98,16 +98,16 @@ export default function Review({route}) {
   const remove = async () => {
     const rating_data = {
       id: rating_id,
-      movieID,
-      rating,
-      username: name
+      movieID: movieID,
+      username: name,
+      rating: rating
     }
 
     const review_data = {
       id: review_id,
-      movieID,
-      review,
-      username: name
+      movieID: movieID,
+      username: name,
+      review: review
     }
 
     const config = {
@@ -117,20 +117,16 @@ export default function Review({route}) {
     }
 
     try {
-      const res = await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/rating', rating_data, config);
-
-      console.log(res.data)
+      await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/rating', rating_data, config);
 
     } catch (error) {
       console.log(error)
     }
 
     try {
-      const res = await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/review', review_data, config);
+      await axios.delete('https://carolinehoeg.com/semesterprojekt/api/movies/delete/review', review_data, config);
 
-      await console.log(res.data)
-
-      await goTo('Home')
+      goTo('Home')
 
     } catch (error) {
       console.log(error)
