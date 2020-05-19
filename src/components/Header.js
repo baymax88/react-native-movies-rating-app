@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import { GlobalContext } from '../context/GlobalState'
 
-export default function Header({loggedIn, userPage}) {
+export default function Header({loggedIn, userPage, newSearch}) {
 
   const [search, setSearch] = useState('');
 
@@ -24,7 +24,11 @@ export default function Header({loggedIn, userPage}) {
   }
 
   const toSearch = () => {
-    navigation.navigate('SearchResult', {keyword: search});
+    if (newSearch) {
+      newSearch(search)
+    } else {
+      navigation.navigate('SearchResult', {keyword: search});
+    }
   }
 
   let rightElement = (loggedIn) ? <Button type="clear" title={name} containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('UserProfile')} /> : <Button type="clear" title="LogIn" containerStyle={styles.rightBtnContainer} buttonStyle={{padding: wp('2%')}} titleStyle={styles.title} onPress={() => goTo('LogIn')} />;

@@ -10,68 +10,85 @@ import MovieSummary from '../components/MovieSummary'
 import { GlobalContext } from '../context/GlobalState'
 
 export default function SearchResult({route}) {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [finalPage, setFinalPage] = useState();
-  const { keyword } = route.params;
+  const [movies, setMovies] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
+  const [page, setPage] = useState(1)
+  const [finalPage, setFinalPage] = useState()
+  const [keyword, setKeyword] = useState(route.params.keyword)
 
   const { name } = useContext(GlobalContext)
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
+      setIsError(false)
+      setIsLoading(true)
 
       try {
-        const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${keyword}/${page}`);
+        const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${keyword}/${page}`)
 
-        setFinalPage(Math.ceil(result.data.totalResults / 10));
-        setMovies(result.data.movieDTOs);
+        setFinalPage(Math.ceil(result.data.totalResults / 10))
+        setMovies(result.data.movieDTOs)
       } catch (error) {
-        setIsError(true);
+        setIsError(true)
       }
 
-      setIsLoading(false);
-    };
+      setIsLoading(false)
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const goToNext = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
     setMovies([])
 
     try {
-      const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${keyword}/${page + 1}`);
+      const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${keyword}/${page + 1}`)
 
       await setPage(page + 1)
-      await setMovies(result.data.movieDTOs);
+      await setMovies(result.data.movieDTOs)
     } catch (error) {
-      setIsError(true);
+      setIsError(true)
     }
-    setIsLoading(false);
+    setIsLoading(false)
   }
 
   const goToPrev = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
     setMovies([])
 
     try {
-      const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${keyword}/${page - 1}`);
+      const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${keyword}/${page - 1}`)
 
       await setPage(page - 1)
-      await setMovies(result.data.movieDTOs);
+      await setMovies(result.data.movieDTOs)
     } catch (error) {
-      setIsError(true);
+      setIsError(true)
     }
-    setIsLoading(false);
+    setIsLoading(false)
+  }
+
+  const handler = async newWord => {
+    setIsLoading(true)
+    setMovies([])
+
+    try {
+      const result = await axios.get(`https://carolinehoeg.com/semesterprojekt/api/movies/search/${newWord}/1`)
+
+      await setPage(1)
+      await setKeyword(newWord)
+      await setFinalPage(Math.ceil(result.data.totalResults / 10))
+      await setMovies(result.data.movieDTOs)
+    } catch (error) {
+      setIsError(true)
+    }
+    setIsLoading(false)
   }
 
   return (
     <View>
-      <Header loggedIn={(name !== '')} />
+      <Header loggedIn={(name !== '')} newSearch={handler} />
       <ScrollView style={styles.content}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Search Result</Text>
