@@ -2,6 +2,8 @@
 
 🎞 Movie Rating and Review App - React Native
 
+![react-native-movies-rating-app](/movie-app-portfolio.jpg?raw=true)
+
 ## Inatall
 
 ```
